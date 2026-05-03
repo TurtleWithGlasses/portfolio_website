@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mehmet — Developer & Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #090909;
+    --surface: #111111;
+    --surface2: #181818;
+    --accent: #F5A623;
+    --accent2: #FF4D4D;
+    --text: #EDEAE0;
+    --muted: #666;
+    --border: #222;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'IBM Plex Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  ::selection { background: var(--accent); color: #000; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: rgba(9,9,9,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+    top: -100px; left: -100px;
+    pointer-events: none;
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.6; }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 1100px; }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 14vw, 14rem);
+    line-height: 0.88;
+    letter-spacing: -2px;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name span { color: var(--accent); }
+
+  .hero-tagline {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin: 2rem 0 3rem;
+    max-width: 480px;
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    background: transparent;
+    cursor: crosshair;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: translateX(-101%);
+    transition: transform 0.25s ease;
+    z-index: -1;
+  }
+
+  .btn:hover { color: #000; }
+  .btn:hover::before { transform: translateX(0); }
+
+  .btn-ghost {
+    border-color: var(--border);
+    color: var(--muted);
+  }
+
+  .btn-ghost::before { background: var(--surface2); }
+  .btn-ghost:hover { color: var(--text); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 3rem;
+    writing-mode: vertical-rl;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 7rem 3rem; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-num {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 10vw, 9rem);
+    color: var(--surface2);
+    line-height: 1;
+    margin-bottom: -1.5rem;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--surface); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1100px;
+  }
+
+  .about-bio {
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
+
+  .about-bio p + p { margin-top: 1.2rem; }
+
+  .about-bio strong { color: var(--accent); font-weight: 600; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ─── SKILLS ─── */
+  #skills { background: var(--bg); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    max-width: 1100px;
+  }
+
+  .skill-group {
+    background: var(--bg);
+    padding: 2rem;
+  }
+
+  .skill-group-title {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.8rem;
+  }
+
+  .skill-bar-wrap {
+    width: 80px;
+    height: 3px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .skill-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--accent);
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { background: var(--surface); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    max-width: 1100px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 2rem;
+    position: relative;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: crosshair;
+  }
+
+  .project-card:hover { background: var(--surface2); }
+
+  .project-card::after {
+    content: '↗';
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--muted);
+    transition: color 0.2s, transform 0.2s;
+    font-family: sans-serif;
+    font-style: normal;
+  }
+
+  .project-card:hover::after {
+    color: var(--accent);
+    transform: translate(3px, -3px);
+  }
+
+  .project-num {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+  }
+
+  .project-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--bg); }
+
+  .contact-wrap {
+    max-width: 640px;
+  }
+
+  .contact-intro {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    line-height: 1.9;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input, textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    resize: vertical;
+  }
+
+  input:focus, textarea:focus { border-color: var(--accent); }
+  textarea { min-height: 140px; }
+
+  .form-submit { margin-top: 1.5rem; }
+
+  .form-note {
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    letter-spacing: 1px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--surface);
+    padding: 2.5rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  .footer-links a {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 0.65rem;
+    color: var(--muted);
+    width: 100%;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── WAVE SVG ─── */
+  .wave-wrap {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">M.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for collaboration</div>
+    <h1 class="hero-name">
+      MEH<span>M</span>ET
+    </h1>
+    <p class="hero-tagline">
+      Data Scientist & Software Developer — building ML models, data pipelines, and tools that make sense of the world.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn">View Projects</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      <a href="resume.pdf" class="btn btn-ghost" download>↓ Resume</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — About</div>
+  <div class="section-num reveal">01</div>
+  <h2 class="section-title reveal">WHO I AM</h2>
+
+  <div class="about-grid">
+    <div class="about-bio reveal">
+      <p>
+        I'm a self-taught developer and data scientist based in <strong>Istanbul, Turkey</strong>. I build data-driven systems and tools that turn raw information into real understanding.
+      </p>
+      <p>
+        My work spans <strong>machine learning</strong>, seismic data analysis, media monitoring dashboards, and automation tools. I'm currently building a multi-source <strong>earthquake forecasting model</strong> using seismic catalogs and ensemble ML methods.
+      </p>
+      <p>
+        I believe in learning by building. Every project in my portfolio started with a real problem — and ended with something I could actually use or share.
+      </p>
+      <br>
+      <div class="hero-ctas">
+        <a href="https://github.com/yourusername" target="_blank" class="btn btn-ghost">GitHub</a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="about-stats reveal reveal-delay-2">
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Years Learning</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">ML Models Trained</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Commits & Counting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 — Skills</div>
+  <div class="section-num reveal">02</div>
+  <h2 class="section-title reveal">WHAT I USE</h2>
+
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-item"><span>Python</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="90%"></div></div></div>
+      <div class="skill-item"><span>SQL</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="75%"></div></div></div>
+      <div class="skill-item"><span>HTML / CSS</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="65%"></div></div></div>
+      <div class="skill-item"><span>JavaScript</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="50%"></div></div></div>
+    </div>
+
+    <div class="skill-group reveal reveal-delay-1">
+      <div class="skill-group-title">Data & ML</div>
+      <div class="skill-item"><span>Pandas / NumPy</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="88%"></div></div></div>
+      <div class="skill-item"><span>LightGBM / XGBoost</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80%"></div></div></div>
+      <div class="skill-item"><span>Scikit-learn</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="82%"></div></div></div>
+      <div class="skill-item"><span>Plotly / Matplotlib</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="78%"></div></div></div>
+    </div>
+
+    <div class="skill-group reveal reveal-delay-2">
+      <div class="skill-group-title">Tools & Platforms</div>
+      <div class="skill-item"><span>Git / GitHub</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="85%"></div></div></div>
+      <div class="skill-item"><span>VS Code / Cursor</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="90%"></div></div></div>
+      <div class="skill-item"><span>Streamlit</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="70%"></div></div></div>
+      <div class="skill-item"><span>SQLite / PostgreSQL</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="65%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 — Projects</div>
+  <div class="section-num reveal">03</div>
+  <h2 class="section-title reveal">WHAT I BUILT</h2>
+
+  <div class="projects-grid">
+    <a href="#" class="project-card reveal">
+      <div class="project-num">PRJ — 001</div>
+      <h3 class="project-title">Earthquake Data Explorer</h3>
+      <p class="project-desc">Interactive web app for exploring seismic catalogs from USGS and AFAD. Filter by region, magnitude, and date — with live map visualizations.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">Plotly</span><span class="tag">USGS API</span>
+      </div>
+    </a>
+
+    <a href="#" class="project-card reveal reveal-delay-1">
+      <div class="project-num">PRJ — 002</div>
+      <h3 class="project-title">Personal Finance Tracker</h3>
+      <p class="project-desc">CLI + web tool for logging and categorizing income and expenses. Generates monthly visual reports with CSV import from bank statements.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">SQLite</span><span class="tag">Matplotlib</span><span class="tag">CSV</span>
+      </div>
+    </a>
+
+    <a href="#" class="project-card reveal reveal-delay-2">
+      <div class="project-num">PRJ — 003</div>
+      <h3 class="project-title">Media Sentiment Dashboard</h3>
+      <p class="project-desc">Pulls news headlines from NewsAPI, runs NLP sentiment analysis, and displays keyword trends over time in an interactive dashboard.</p>
+      <div class="project-tags">
+        <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">HuggingFace</span><span class="tag">Streamlit</span>
+      </div>
+    </a>
+
+    <a href="#" class="project-card reveal reveal-delay-3">
+      <div class="project-num">PRJ — 004</div>
+      <h3 class="project-title">ML Explainability Tool</h3>
+      <p class="project-desc">Visual interface for exploring trained model internals — feature importances, SHAP values, and prediction confidence — with upload support for custom models.</p>
+      <div class="project-tags">
+        <span class="tag">SHAP</span><span class="tag">LightGBM</span><span class="tag">Dash</span><span class="tag">Python</span>
+      </div>
+    </a>
+
+    <a href="#" class="project-card reveal">
+      <div class="project-num">PRJ — 005</div>
+      <h3 class="project-title">Earthquake Forecast Model</h3>
+      <p class="project-desc">Multi-source seismic forecasting using USGS, AFAD, Kandilli catalogs and GNSS geodetic data. Ensemble of LightGBM, Random Forest, and ExtraTrees models.</p>
+      <div class="project-tags">
+        <span class="tag">ML Ensemble</span><span class="tag">GNSS</span><span class="tag">Walk-Forward</span><span class="tag">Python</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">04 — Contact</div>
+  <div class="section-num reveal">04</div>
+  <h2 class="section-title reveal">LET'S TALK</h2>
+
+  <div class="contact-wrap">
+    <p class="contact-intro reveal">
+      Whether you have a project in mind, want to collaborate, or just want to talk data — my inbox is open. I'll do my best to get back to you within a couple of days.
+    </p>
+
+    <form class="reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="What's this about?">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell me about your project or idea..." required></textarea>
+        </div>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn">Send Message</button>
+      </div>
+      <p class="form-note" id="form-feedback"></p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">M.</div>
+  <div class="footer-links">
+    <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+    <a href="resume.pdf" download>Resume</a>
+    <a href="mailto:your@email.com">Email</a>
+  </div>
+  <div class="footer-copy">© 2026 Mehmet — Built from scratch.</div>
+</footer>
+
+<script>
+  // ─── INTERSECTION OBSERVER FOR REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.skill-bar').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.skill-bar').forEach(bar => {
+    bar.style.width = '0%';
+  });
+
+  // ─── HERO PARALLAX GLOW ───
+  document.addEventListener('mousemove', e => {
+    const glow = document.querySelector('.hero-glow');
+    if (!glow) return;
+    const x = (e.clientX / window.innerWidth) * 40 - 20;
+    const y = (e.clientY / window.innerHeight) * 40 - 20;
+    glow.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  // ─── CONTACT FORM ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    const feedback = document.getElementById('form-feedback');
+    feedback.textContent = '✓ Message sent. I will get back to you soon.';
+    feedback.style.color = '#F5A623';
+    e.target.reset();
+  }
+
+  // ─── NAV ACTIVE SCROLL ───
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#EDEAE0' : '';
+    });
+  });
+</script>
+</body>
+</html>
