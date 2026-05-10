@@ -1,10 +1,16 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 app = Flask(__name__)
+
+
+@app.before_request
+def enforce_https():
+    if not app.debug and request.headers.get("X-Forwarded-Proto", "http") == "http":
+        return redirect(request.url.replace("http://", "https://", 1), code=301)
 
 
 @app.route("/")
